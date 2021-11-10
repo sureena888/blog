@@ -4,6 +4,8 @@
   grid-template-columns: 250px auto;
   height: 100vh;
   overflow: scroll;
+  background-color: #feebca;
+  font-family: Georgia;
 }
 
 header {
@@ -13,6 +15,7 @@ header {
   color: white;
   grid-column: 1 / span 2;
   padding: 10px 5px;
+  background-color: #4d4b30;
 }
 
 form {
@@ -34,8 +37,9 @@ article {
   padding: 10px;
 }
 
+
 nav {
-  background-color: #dee9ff;
+  background-color: #daa38b;
 }
 
 nav p:hover {
@@ -49,6 +53,7 @@ article .date {
 
 article .body {
   white-space: break-spaces;
+
 }
 
 .error {
