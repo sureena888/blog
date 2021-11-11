@@ -1,17 +1,20 @@
-
-import { useEffect, useState } from "react"
-import Nav from "./Nav"
-import Article from "./Article"
-import ArticleEntry from "./ArticleEntry"
-import { SignIn, SignOut, useAuthentication } from "../services/authService"
-import { fetchArticles, createArticle } from "../services/articleService"
-import "./App.css"
+import { useEffect, useState } from "react";
+import Nav from "./Nav";
+import Article from "./Article";
+import ArticleEntry from "./ArticleEntry";
+import { SignIn, SignOut, useAuthentication } from "../services/authService";
+import {
+  fetchArticles,
+  createArticle,
+  deleteArticle,
+} from "../services/articleService";
+import "./App.css";
 
 export default function App() {
-  const [articles, setArticles] = useState([])
-  const [article, setArticle] = useState(null)
-  const [writing, setWriting] = useState(false)
-  const user = useAuthentication()
+  const [articles, setArticles] = useState([]);
+  const [article, setArticle] = useState(null);
+  const [writing, setWriting] = useState(false);
+  const user = useAuthentication();
 
   // This is a trivial app, so just fetch all the articles only when
   // a user logs in. A real app would do pagination. Note that
@@ -19,18 +22,26 @@ export default function App() {
   // then "setArticles" writes them into the React state.
   useEffect(() => {
     if (user) {
-      fetchArticles().then(setArticles)
+      fetchArticles().then(setArticles);
     }
-  }, [user])
+  }, [user]);
 
   // Update the "database" *then* update the internal React state. These
   // two steps are definitely necessary.
   function addArticle({ title, body }) {
     createArticle({ title, body }).then((article) => {
-      setArticle(article)
-      setArticles([article, ...articles])
-      setWriting(false)
-    })
+      setArticle(article);
+      setArticles([article, ...articles]);
+      setWriting(false);
+    });
+  }
+
+  function removeArticle(id) {
+    deleteArticle(id).then((article) => {
+      setArticle(null);
+      setArticles(articles.map((a) => a !== article.id));
+      setWriting(false);
+    }); // Add a then part like above
   }
 
   return (
@@ -48,8 +59,8 @@ export default function App() {
       ) : writing ? (
         <ArticleEntry addArticle={addArticle} />
       ) : (
-        <Article article={article} />
+        <Article article={article} deleter={removeArticle} />
       )}
     </div>
-  )
+  );
 }
