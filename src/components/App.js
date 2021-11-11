@@ -14,6 +14,7 @@ export default function App() {
   const [articles, setArticles] = useState([]);
   const [article, setArticle] = useState(null);
   const [writing, setWriting] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const user = useAuthentication();
 
   // This is a trivial app, so just fetch all the articles only when
@@ -26,6 +27,7 @@ export default function App() {
     }
   }, [user]);
 
+  useEffect(() => {}, [articles]);
   // Update the "database" *then* update the internal React state. These
   // two steps are definitely necessary.
   function addArticle({ title, body }) {
@@ -39,9 +41,9 @@ export default function App() {
   function removeArticle(id) {
     deleteArticle(id).then((article) => {
       setArticle(null);
-      setArticles(articles.map((a) => a !== article.id));
+      setArticles(articles.filter((a) => a.id !== id));
       setWriting(false);
-    }); // Add a then part like above
+    });
   }
 
   return (

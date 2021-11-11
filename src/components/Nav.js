@@ -1,4 +1,5 @@
 export default function Nav({ articles, setArticle }) {
+  console.log("NAV ARTS:", articles);
   return (
     <nav>
       {!articles
