@@ -1,3 +1,4 @@
+import Img3 from './plant3.png';
 export default function Nav({ articles, setArticle }) {
   console.log("NAV ARTS:", articles);
   return (
@@ -9,6 +10,7 @@ export default function Nav({ articles, setArticle }) {
               {a.title}
             </p>
           ))}
+      <img id = "plant3" src= {Img3} alt="pic" />
     </nav>
   );
 }

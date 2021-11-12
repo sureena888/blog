@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Nav from "./Nav";
 import Article from "./Article";
 import ArticleEntry from "./ArticleEntry";
+import Img from './pngwing.com.png';
+import Img2 from './plant2.png';
 import { SignIn, SignOut, useAuthentication } from "../services/authService";
 import {
   fetchArticles,
@@ -48,7 +50,9 @@ export default function App() {
     <div className="App">
       <header>
         Blog
+        <img src= {Img} alt="pic" />
         {user && <button onClick={() => setWriting(true)}>New Article</button>}
+        <img src= {Img} alt="pic" />
         {!user ? <SignIn /> : <SignOut />}
       </header>
       {!user ? "" : <Nav articles={articles} setArticle={setArticle} />}
@@ -60,6 +64,7 @@ export default function App() {
       ) : (
         <Article article={article} deleter={removeArticle} />
       )}
+      <img id = "plant2" src= {Img2} alt="pic" />
     </div>
   );
 }
